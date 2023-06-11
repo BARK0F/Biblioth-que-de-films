@@ -2,4 +2,5 @@
 
 # Auteurs
 BONNEVIE Dylan : bonn0104 - dylan.bonnevie@etudiant.univ-reims.fr  
-SUMON Baptiste : simo0170 - baptiste.simon@etudiant.univ-reims.fr
+SIMON Baptiste : simo0170 - baptiste.simon@etudiant.univ-reims.fr
+
