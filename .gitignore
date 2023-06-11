@@ -1,0 +1,5 @@
+/vendor/
+.idea
+.pptx
+.idea/
+.php-cs-fixer.cache
