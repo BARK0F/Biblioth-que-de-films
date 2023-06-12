@@ -27,7 +27,11 @@ foreach ($movies as $movie) {
     $content .= "<li class='list-item'>";
     $content .= "<a href='Movie.php?id={$movie->getId()}'>";
     $content .= "<div class='movie-item'>";
-    $content .= "<img src='image.php?imageId={$image->getId()}' alt='{$movieName}'>";
+    if ($image !== null){
+        $content .= "<img src='image.php?imageId={$image->getId()}' alt='{$movieName}'>";
+    }else{
+        $content .= "<img src='Image/movie_not_found.png' alt='{$movieName}'>";
+    }
     $content .= "<div class='movie-title'>{$movieName}</div>";
     $content .= "</div>";
     $content .= "</a>";
