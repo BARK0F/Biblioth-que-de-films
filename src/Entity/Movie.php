@@ -76,8 +76,13 @@ class Movie{
     {
         return $this->title;
     }
+
+    /**
+     * @return int
+     */
     public function getPosterId(): int
     {
         return $this->posterId;
     }
+
 }

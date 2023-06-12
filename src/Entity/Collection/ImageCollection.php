@@ -4,19 +4,18 @@ declare(strict_types=1);
 namespace Entity\Collection;
 use Database\MyPdo;
 use Entity\Image;
-use PDO;
 
 class ImageCollection{
-    public static function findByMovieId(int $id):array{
+    public static function findById(int $id):Image{
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT i.*
-            FROM image i
-                JOIN movie m ON m.posterId = i.id
-            WHERE m.id = :id
+            SELECT *
+            FROM image 
+            WHERE id = :id
 SQL
         );
+        $stmt->setFetchMode(MyPdo::FETCH_CLASS,Image::class);
         $stmt->execute(["id"=>$id]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, image::class);
+        return $stmt->fetch();
     }
 }
