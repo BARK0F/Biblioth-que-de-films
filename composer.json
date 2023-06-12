@@ -14,5 +14,17 @@
             "email": "dylan.bonnevie@etudiant.univ-reims.fr"
         }
     ],
-    "require": {}
+    "scripts": {
+        "start:linux": [
+            "Composer\\Config::disableProcessTimeout",
+            "bin/run-server.sh"
+        ],
+        "start:windows": [
+            "Composer\\Config::disableProcessTimeout",
+            "bin/run-server.bat"
+        ]
+    },
+    "require": {
+        "ext-pdo": "*"
+    }
 }
