@@ -11,24 +11,24 @@ class PeopleCollection{
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
             SELECT p.*
-            FROM People p
+            FROM people p
                 JOIN Cast c ON c.peopleId = p.id
             WHERE c.movieId = :id
 SQL
         );
         $stmt->execute(["id"=>$movieId]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, People::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, people::class);
     }
 
     public static function findAll():array{
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
             SELECT *
-            FROM People 
+            FROM people 
             ORDER BY name
 SQL
         );
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, People::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, people::class);
     }
 }
