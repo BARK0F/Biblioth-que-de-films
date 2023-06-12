@@ -9,7 +9,6 @@ class AppWebPage extends WebPage
     public function __construct(string $title = "")
     {
         parent::__construct($title);
-        $this->appendCssUrl("/css/style.css");
     }
 
     public function toHtml(): string
@@ -22,7 +21,7 @@ class AppWebPage extends WebPage
     <head>
         <meta charset="UTF-8">
         <title>{$this->getTitle()}</title>
-        <link rel="stylesheet" href="/css/style.css">
+        {$this->getHead()}
     </head>
     <body>
         <div class="header">
