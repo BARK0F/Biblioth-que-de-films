@@ -31,4 +31,17 @@ SQL
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, people::class);
     }
+
+    public static function findById(int $id) : people {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+        SELECT *
+        FROM people
+        WHERE id = :id
+SQL
+        );
+        $stmt->setFetchMode(MyPdo::FETCH_CLASS,people::class);
+        $stmt->execute(["id" => $id]);
+        return $stmt->fetch();
+    }
 }
