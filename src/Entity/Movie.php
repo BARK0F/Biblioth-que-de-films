@@ -4,6 +4,7 @@ namespace Entity;
 
 class Movie{
     private int $id;
+    private int $posterId;
     private string $originalLanguage;
     private string $originalTitle;
     private string $overview;
@@ -74,6 +75,14 @@ class Movie{
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosterId(): int
+    {
+        return $this->posterId;
     }
 
 }
