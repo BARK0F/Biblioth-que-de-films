@@ -10,6 +10,7 @@ use Entity\Collection\PeopleCollection;
 
 $webpage = new AppWebPage();
 $webpage->setTitle("Films");
+$webpage->appendCssUrl("css/index.css");
 
 $imageCollection = new ImageCollection();
 $movieCollection = new MovieCollection();
@@ -20,11 +21,17 @@ $content .= "<ul class='list'>";
 
 
 foreach ($movies as $movie) {
-    $movieName = $webpage->escapeString($movie->getTitle());
-    $content .= "<li class='list-item'>{$movieName}</li>";
-
     $image = $imageCollection->findById($movie->getPosterId());
-    $content.= "<img src='image.php?imageId={$image->getId()}'>";
+    $movieName = $webpage->escapeString($movie->getTitle());
+
+    $content .= "<li class='list-item'>";
+    $content .= "<a href='Movie.php?id={$movie->getId()}'>";
+    $content .= "<div class='movie-item'>";
+    $content .= "<img src='image.php?imageId={$image->getId()}' alt='{$movieName}'>";
+    $content .= "<div class='movie-title'>{$movieName}</div>";
+    $content .= "</div>";
+    $content .= "</a>";
+    $content .= "</li>";
 }
 
 
