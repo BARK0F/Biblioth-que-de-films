@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace Entity;
 
 class Image{
-    public int $id;
-    public string $jpeg;
+    private int $id;
+    private string $jpeg;
 
     /**
      * @return int
