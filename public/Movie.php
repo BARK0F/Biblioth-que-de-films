@@ -71,6 +71,10 @@ foreach ($peoples as $people) {
     <div class= 'image'><img src='image.php?imageId={$people->getAvatarId()}'></div>";
     $cast = $CastCollection->findByMovieIdAndPeopleId($movie->getId(), $people->getId());
     $content .= "<div class='role'>{$cast->getRole()}</div>";
+    <div class= 'image'><img src='image.php?imageId={$imageCollection->findById($movie->getPosterId())->getId()}'></div>";
+    foreach ($CastCollection->findByMovieIdAndPeopleId($movie->getId(), $people->getId()) as $cast) {
+        $content .= "<div class='role'>{$cast->getRole()}</div>";
+    }
     $content .= "<div class='name'>{$people->getName()}</div></a>";
     $content .= "</div>";
 }
