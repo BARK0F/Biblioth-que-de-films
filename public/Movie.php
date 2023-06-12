@@ -10,7 +10,7 @@ use Entity\Collection\ImageCollection;
 use Entity\Collection\PeopleCollection;
 
 
-if(isset($_GET['id']) && ctype_digit($_GET['id'])) {
+if(isset($_GET['id'])) {
     $movieId=$_GET['id'];
 } elseif(isset($_GET['id'])) {
     header('Location: index.php');
