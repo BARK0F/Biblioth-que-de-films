@@ -12,7 +12,7 @@ class PeopleCollection{
             <<<SQL
             SELECT p.*
             FROM people p
-                JOIN Cast c ON c.peopleId = p.id
+                JOIN cast c ON c.peopleId = p.id
             WHERE c.movieId = :id
 SQL
         );
