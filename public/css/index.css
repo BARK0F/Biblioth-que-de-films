@@ -1,0 +1,61 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.header {
+    background-color: rgb(150, 150, 150);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.header h1 {
+    border: 2px solid red;
+    padding: 10px;
+}
+
+.content {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    background-color: rgb(100, 100, 100);
+}
+
+.list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid black;
+    background-color: lightgray;
+}
+
+.list-item {
+    width: 30%; /* Ajuster la largeur en fonction du nombre d'éléments par ligne */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer {
+    background-color: rgb(150, 150, 150);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.footer p {
+    border: 2px solid red;
+    padding: 10px;
+}
