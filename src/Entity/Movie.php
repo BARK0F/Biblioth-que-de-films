@@ -3,14 +3,14 @@ declare(strict_types=1);
 namespace Entity;
 
 class Movie{
-    public int $id;
-    public string $originalLanguage;
-    public string $originalTitle;
-    public string $overview;
-    public string $releasedate;
-    public int $runtime;
-    public string $tagline;
-    public string $title;
+    private int $id;
+    private string $originalLanguage;
+    private string $originalTitle;
+    private string $overview;
+    private string $releasedate;
+    private int $runtime;
+    private string $tagline;
+    private string $title;
 
     /**
      * @return int
