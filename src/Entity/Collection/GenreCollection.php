@@ -11,24 +11,24 @@ class GenreCollection
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
             SELECT g.*
-            FROM Genre g
-                JOIN Movie_genre mg ON mg.genreId = g.id
+            FROM genre g
+                JOIN movie_genre mg ON mg.genreId = g.id
             WHERE c.movieId = :id
 SQL
         );
         $stmt->execute(["id"=>$movieId]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Genre::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, genre::class);
     }
 
     public static function findAll():array{
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
             SELECT *
-            FROM Genre 
+            FROM genre 
             ORDER BY name
 SQL
         );
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Genre::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, genre::class);
     }
 }
