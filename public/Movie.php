@@ -10,9 +10,9 @@ use Entity\Collection\ImageCollection;
 use Entity\Collection\PeopleCollection;
 
 
-if(isset($_GET['movie']) && ctype_digit($_GET['movie'])) {
-    $movieId=$_GET['movie'];
-} elseif(isset($_GET['movie'])) {
+if(isset($_GET['id']) && ctype_digit($_GET['id'])) {
+    $movieId=$_GET['id'];
+} elseif(isset($_GET['id'])) {
     header('Location: index.php');
     exit();
 }
@@ -50,7 +50,7 @@ $content.= "<div class = 'principal_content'>";
 # Premiere ligne
 $content.="<div class='firstLine'>";
 $content.="<div class = 'title'>{$movie->getTitle()}</div>";
-$content.="<div class ='date'>{$movie->getReleasedate()}</div>";
+#$content.="<div class ='date'>{$movie->getReleasedate()}</div>";
 $content.="</div>";
 
 $content.="<div class='OriginalTitle'>{$movie->getOriginalTitle()}</div>";
@@ -68,10 +68,9 @@ $peoples = $PeopleCollection->findByMovieId($movie->getId());
 foreach ($peoples as $people) {
     $content .="<div class='acteur'>";
     $content .= "<a href='./people.php?peopleId={$people->getId()}'>
-    <div class= 'image'><img src='image.php?imageId={$imageCollection->findById($movie->getPosterId())}'></div>";
-    foreach ($CastCollection->findByMovieIdAndPeopleId($movie->getId(), $people->getId()) as $cast) {
-        $content .= "<div class='role'>{$cast->getRole()}</div>";
-    }
+    <div class= 'image'><img src='image.php?imageId={$people->getAvatarId()}'></div>";
+    $cast = $CastCollection->findByMovieIdAndPeopleId($movie->getId(), $people->getId());
+    $content .= "<div class='role'>{$cast->getRole()}</div>";
     $content .= "<div class='name'>{$people->getName()}</div></a>";
     $content .= "</div>";
 }

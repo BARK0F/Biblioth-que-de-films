@@ -11,13 +11,14 @@ class CastCollection
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
-        SELECT m.*, c.role
+        SELECT c.*
         FROM movie m
         JOIN cast c ON m.id = c.movieId
         WHERE c.movieId = :movieId AND c.peopleId = :peopleId
 SQL
         );
+        $stmt->setFetchMode(MyPdo::FETCH_CLASS,cast::class);
         $stmt->execute(["movieId" => $movieId, "peopleId" => $peopleId]);
-        return $stmt->fetchObject(Cast::class);
+        return $stmt->fetch();
     }
 }
