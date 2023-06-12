@@ -6,8 +6,8 @@ namespace Entity;
 class People
 {
     private int $id;
-    private string $birthday;
-    private string $deathday;
+    private ?string $birthday;
+    private ?string $deathday;
     private string $name;
     private string $longtext;
     private string $placeOfBirth;
@@ -23,7 +23,7 @@ class People
     /**
      * @return string
      */
-    public function getBirthday(): string
+    public function getBirthday(): ?string
     {
         return $this->birthday;
     }
@@ -31,7 +31,7 @@ class People
     /**
      * @return string
      */
-    public function getDeathday(): string
+    public function getDeathday(): ?string
     {
         return $this->deathday;
     }
