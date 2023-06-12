@@ -16,7 +16,7 @@ class MovieCollection{
 SQL
         );
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Movie::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, movie::class);
     }
 
     public static function findByPeopleId(int $peopleId): array{
@@ -30,6 +30,6 @@ SQL
 SQL
         );
         $stmt->execute(["id"=>$peopleId]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Movie::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, movie::class);
     }
 }
