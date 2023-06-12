@@ -40,10 +40,9 @@ $movie = $stmt->fetch();
 $webpage->setTitle("{$movie->getTitle()}");
 
 
-$content = "<div class='content'>";
 
 $image = $imageCollection->findById($movie->getPosterId());
-$content.= "<img class='poster' src='image.php?imageId={$image->getId()}'>";
+$content= "<img class='poster' src='image.php?imageId={$image->getId()}'>";
 
 $content.= "<div class = 'principal_content'>";
 
@@ -67,14 +66,18 @@ $peoples = $PeopleCollection->findByMovieId($movie->getId());
 
 foreach ($peoples as $people) {
     $content .="<div class='acteur'>";
-    $content .= "<a href='./people.php?peopleId={$people->getId()}'>
-    <div class= 'image'><img src='image.php?imageId={$people->getAvatarId()}'></div>";
-    $cast = $CastCollection->findByMovieIdAndPeopleId($movie->getId(), $people->getId());
-    $content .= "<div class='role'>{$cast->getRole()}</div>";
-    <div class= 'image'><img src='image.php?imageId={$imageCollection->findById($movie->getPosterId())->getId()}'></div>";
-    foreach ($CastCollection->findByMovieIdAndPeopleId($movie->getId(), $people->getId()) as $cast) {
-        $content .= "<div class='role'>{$cast->getRole()}</div>";
+    $content .= "<a href='./people.php?peopleId={$people->getId()}'>";
+    $content .="<div class= 'image'>";
+    if ($people->getAvatarId() !== null){
+        $content .="<img src='image.php?imageId={$people->getAvatarId()}'>";
+    }else{
+        $content .="<img src='Image/people_not_found.png' alt='dere'>";
     }
+    $content.="</div>";
+
+    $cast = $CastCollection->findByMovieIdAndPeopleId($movie->getId(), $people->getId());
+
+    $content .= "<div class='role'>{$cast->getRole()}</div>";
     $content .= "<div class='name'>{$people->getName()}</div></a>";
     $content .= "</div>";
 }
