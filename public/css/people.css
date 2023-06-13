@@ -1,0 +1,155 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.header {
+    background-color: rgb(80, 80, 80);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.header h1 {
+    border: 2px solid red;
+    padding: 10px;
+}
+
+.content {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    flex-direction: column;
+    background-color: rgb(30, 30, 30);
+    justify-content:center;
+}
+
+.footer {
+    background-color: rgb(80, 80, 80);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.footer p {
+    border: 2px solid red;
+    padding: 10px;
+}
+
+.content a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.content .principal_content .actor img {
+    width: 20%
+}
+
+.content .principal_content .actor {
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    border: 2px black solid;
+    background-color: rgb(100, 100, 100);
+}
+
+.content .principal_content .actor .actor_info {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.content .principal_content .actor .actor_info .nom,
+.content .principal_content .actor .actor_info .PlaceOfBirth,
+.content .principal_content .actor .actor_info .bio{
+    border: 2px black solid;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgb(130, 130, 130);
+}
+
+.content .principal_content .actor .actor_info .date_actor {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+}
+
+.content .principal_content .actor .actor_info .date_actor .Birthday{
+    border: 2px black solid;
+    margin-bottom: 10px;
+    padding: 10px;
+    flex:1;
+    background-color: rgb(130, 130, 130);
+}
+
+.content .principal_content .actor .actor_info .date_actor .Deathday{
+    border: 2px black solid;
+    margin-bottom: 10px;
+    padding: 10px;
+    flex:1;
+    background-color: rgb(130, 130, 130);
+}
+
+.content .principal_content .actor .actor_info .nom,
+.content .principal_content .actor .actor_info .PlaceOfBirth {
+    text-align: center;
+}
+
+.content .principal_content .film {
+    display: flex;
+    flex-direction: row;
+}
+
+.content .principal_content .film .movie_info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.content .principal_content .film .movie_info .ligne1 {
+    display: flex;
+    flex-direction: row;
+}
+
+.content .principal_content .film .ligne1 .titre {
+    display: flex;
+    width: 80%;
+    border: 2px black solid;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgb(130, 130, 130);
+}
+
+.content .principal_content .film .ligne1 .date {
+    display: flex;
+    width: 20%;
+    text-align: center;
+    border: 2px black solid;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgb(130, 130, 130);
+}
+
+.content .principal_content .film .movie_info .role {
+    display: flex;
+    border: 2px black solid;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgb(130, 130, 130);
+}
