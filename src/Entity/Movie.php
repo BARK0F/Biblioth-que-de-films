@@ -4,7 +4,7 @@ namespace Entity;
 
 class Movie{
     private int $id;
-    private int $posterId;
+    private ?int $posterId;
     private string $originalLanguage;
     private string $originalTitle;
     private string $overview;
@@ -79,7 +79,7 @@ class Movie{
     /**
      * @return int
      */
-    public function getPosterId(): int
+    public function getPosterId(): ?int
     {
         return $this->posterId;
     }
