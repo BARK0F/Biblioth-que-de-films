@@ -13,7 +13,7 @@ body {
 }
 
 .header {
-    background-color: rgb(150, 150, 150);
+    background-color: rgb(80, 80, 80);
     padding: 20px;
     text-align: center;
     border: 1px solid black;
@@ -28,7 +28,7 @@ body {
     flex: 1;
     overflow: auto;
     padding: 20px;
-    background-color: rgb(100, 100, 100);
+    background-color: rgb(30, 30, 30);
 }
 
 .list {
@@ -37,7 +37,7 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
     border: 1px solid black;
-    background-color: lightgray;
+    background-color: rgb(100,100,100);
 }
 
 .list-item {
@@ -49,7 +49,7 @@ body {
 }
 
 .footer {
-    background-color: rgb(150, 150, 150);
+    background-color: rgb(80, 80, 80);
     padding: 20px;
     text-align: center;
     border: 1px solid black;
@@ -58,4 +58,9 @@ body {
 .footer p {
     border: 2px solid red;
     padding: 10px;
+}
+
+.content .list .list-item .movie-item {
+    color:white;
+    text-align: center;
 }
