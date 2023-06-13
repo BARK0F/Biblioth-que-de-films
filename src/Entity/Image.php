@@ -6,7 +6,7 @@ class Image{
     private int $id;
     private string $jpeg;
 
-    /**
+    /** Ce getter renvoie l'id de l'image
      * @return int
      */
     public function getId(): int
@@ -14,7 +14,7 @@ class Image{
         return $this->id;
     }
 
-    /**
+    /** Ce getter renvoie le Jpeg de l'image
      * @return string
      */
     public function getJpeg(): string

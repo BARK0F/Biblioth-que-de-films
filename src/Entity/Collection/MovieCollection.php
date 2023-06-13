@@ -7,6 +7,9 @@ use Entity\Movie;
 use PDO;
 
 class MovieCollection{
+    /** Cette fonction permet de trouver tous les films disponibles dans la base de données.
+     * @return array Les films triés par titre
+     */
     public static function findAll():array{
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
@@ -19,6 +22,10 @@ SQL
         return $stmt->fetchAll(PDO::FETCH_CLASS, movie::class);
     }
 
+    /** Cette fonction permet de trouver tous les films dans lesquels une personne spécifique a joué un rôle.
+     * @param int $peopleId L'id de la personne
+     * @return array Tout les films et son rôle dans le film.
+     */
     public static function findByPeopleId(int $peopleId): array{
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
