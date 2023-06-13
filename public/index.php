@@ -20,7 +20,7 @@ $content = "
 <div class='dropdown'>
     <button class='dropbtn'>redirection</button>
     <div class='dropdown-content'>
-      <a href='form.php?action=create'>Menu de création</a>
+      <a href='form.php?action=create'>Création d'un nouveau film</a>
     </div>
   </div>
 ";

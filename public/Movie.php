@@ -19,13 +19,13 @@ SQL
 $stmt->execute();
 $movies = $stmt->fetchAll(PDO::FETCH_CLASS, movie::class);
 
-$idMovie = array();
+$idMovies = array();
 
 foreach ($movies as $movie){
-    $idMovie[] = $movie->getId();
+    $idMovies[] = $movie->getId();
 }
 
-if(isset($_GET['id']) && ctype_digit($_GET['id']) && in_array($_GET['id'],$idMovie)) {
+if(isset($_GET['id']) && in_array($_GET['id'],$idMovies)) {
     $movieId=$_GET['id'];
 } else {
     header('Location: index.php');
@@ -62,8 +62,9 @@ $content = "
     <button class='dropbtn'>redirection</button>
     <div class='dropdown-content'>
       <a href='index.php'>Menu principal</a>
-      <a href='form.php?action=create'>Menu de création</a>
+      <a href='form.php?action=create'>Création d'un nouveau film</a>
       <a href='form.php?action=delete&id={$movie->getId()}'>Supprimer le film actuel</a>
+      <a href='form.php?action=edit&id={$movie->getId()}'>Modifier le film actuel</a>
     </div>
   </div>
 ";
