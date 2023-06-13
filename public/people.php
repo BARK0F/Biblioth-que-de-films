@@ -45,7 +45,7 @@ $content = "
     <button class='dropbtn'>redirection</button>
     <div class='dropdown-content'>
       <a href='index.php'>Menu principal</a>
-      <a href='form.php'>Menu d'édition</a>
+      <a href='form.php?action=create'>Menu de création</a>
     </div>
   </div>
 ";

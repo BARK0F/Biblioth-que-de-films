@@ -45,24 +45,74 @@ $stmt = MyPDO::getInstance()->prepare(
     <<<SQL
     SELECT *
     FROM movie
-    WHERE id=:artistId
+    WHERE id=:movieId
 SQL
 );
 
 $stmt->setFetchMode(MyPdo::FETCH_CLASS,movie::class);
-$stmt->execute(["artistId" => $movieId]);
+$stmt->execute(["movieId" => $movieId]);
 $movie = $stmt->fetch();
 
 
 $webpage->setTitle("{$movie->getTitle()}");
 
 
+$content = "
+<div class='dropdown'>
+    <button class='dropbtn'>redirection</button>
+    <div class='dropdown-content'>
+      <a href='index.php'>Menu principal</a>
+      <a href='form.php?action=create'>Menu de création</a>
+      <a href='form.php?action=delete&id={$movie->getId()}'>Supprimer le film actuel</a>
+    </div>
+  </div>
+";
 
-$image = $imageCollection->findById($movie->getPosterId());
+$webpage->appendCss("
+.dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 120px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+");
 
 
-$content ="<div class = 'principal_content'>";
-$content.="<img class='poster' src='image.php?imageId={$image->getId()}'>";
+
+$content .="<div class = 'principal_content'>";
+if($movie->getPosterId() !== null){
+    $image = $imageCollection->findById($movie->getPosterId());
+    if ($image !== null){
+        $content .= "<img src='image.php?imageId={$image->getId()}' alt='{$movie->getTitle()}'>";
+    }
+}else{
+    $content .= "<img src='Image/movie_not_found.png' alt='{$movie->getTitle()}'>";
+}
+
+
+
 $content.="<div class='movie_info'>";
 # Premiere ligne
 $content.="<div class='firstLine'>";
