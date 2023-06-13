@@ -1,0 +1,138 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.header {
+    background-color: rgb(150, 150, 150);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.header h1 {
+    border: 2px solid red;
+    padding: 10px;
+}
+
+.content {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    background-color: rgb(100, 100, 100);
+}
+
+.footer {
+    background-color: rgb(150, 150, 150);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.footer p {
+    border: 2px solid red;
+    padding: 10px;
+}
+
+.content a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.content img.poster {
+    width: 20%;
+}
+
+.content .principal_content {
+    width: 80%;
+    padding-left: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border : 2px black solid;
+}
+.content .principal_content .movie_info {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.content .principal_content .firstLine,
+.content .principal_content .OriginalTitle,
+.content .principal_content .Tagline,
+.content .principal_content .resumer {
+    border: 2px black solid;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.content .principal_content .firstLine {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.content .principal_content .title {
+    width: 70%;
+}
+
+.content .principal_content .date {
+    width: 30%;
+    text-align: right;
+}
+
+.content .principal_content .OriginalTitle {
+    text-align: right;
+}
+
+.content .principal_content .Tagline {
+    margin-bottom: 10px;
+}
+
+.content .principal_content .resumer {
+    height: 25%;
+}
+
+.content .acteur {
+    display: flex;
+    margin-top: 20px;
+    flex-direction : row;
+}
+
+.content .acteur .image {
+    width: 20%;
+}
+
+.content .actor_info .role,
+.content .actor_info .name {
+    border: 2px black solid;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.content .acteur .actor_info {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.content .acteur .actor_info .role {
+    flex: 1;
+}
+
+.content .acteur .actor_info .name {
+    flex: 1;
+}

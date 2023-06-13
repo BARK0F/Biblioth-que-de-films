@@ -22,6 +22,7 @@ $webpage = new AppWebPage();
 $imageCollection = new ImageCollection();
 $PeopleCollection = new PeopleCollection();
 $CastCollection = new CastCollection();
+$webpage->appendCssUrl("css/movie.css");
 
 
 $stmt = MyPDO::getInstance()->prepare(
@@ -42,10 +43,11 @@ $webpage->setTitle("{$movie->getTitle()}");
 
 
 $image = $imageCollection->findById($movie->getPosterId());
-$content= "<img class='poster' src='image.php?imageId={$image->getId()}'>";
 
-$content.= "<div class = 'principal_content'>";
 
+$content ="<div class = 'principal_content'>";
+$content.="<img class='poster' src='image.php?imageId={$image->getId()}'>";
+$content.="<div class='movie_info'>";
 # Premiere ligne
 $content.="<div class='firstLine'>";
 $content.="<div class = 'title'>{$movie->getTitle()}</div>";
@@ -55,7 +57,7 @@ $content.="</div>";
 $content.="<div class='OriginalTitle'>{$movie->getOriginalTitle()}</div>";
 $content.="<div class='Tagline'>{$movie->getTagline()}</div>";
 $content.="<div class='resumer'>{$movie->getOverview()}</div>";
-
+$content.="</div>";
 $content.="</div>";
 
 
@@ -76,9 +78,10 @@ foreach ($peoples as $people) {
     $content.="</div>";
 
     $cast = $CastCollection->findByMovieIdAndPeopleId($movie->getId(), $people->getId());
-
+    $content .= "<div class='actor_info'>";
     $content .= "<div class='role'>{$cast->getRole()}</div>";
     $content .= "<div class='name'>{$people->getName()}</div></a>";
+    $content .= "</div>";
     $content .= "</div>";
 }
 
