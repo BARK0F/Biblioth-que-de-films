@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 
+use Entity\Collection\GenreCollection;
 use Html\AppWebPage;
 use Entity\Collection\MovieCollection;
 use Entity\Collection\ImageCollection;
@@ -14,11 +15,21 @@ $webpage->appendCssUrl("css/index.css");
 
 $imageCollection = new ImageCollection();
 $movieCollection = new MovieCollection();
-$movies = $movieCollection->findAll();
+$genreCollection = new GenreCollection();
 
+$selectGenres = $_GET['genres'] ?? [];
+$filterMovie = array();
+
+if (!empty($selectGenres)){
+    foreach ($selectGenres as $selectGenre){
+        $filterMovie = array_merge($filterMovie,$movieCollection->findByGenreName($selectGenre));
+    }
+}else{
+    $filterMovie = $movieCollection->findAll();
+}
 $content = "
 <div class='dropdown'>
-    <button class='dropbtn'>redirection</button>
+    <button class='dropbtn'>Redirection</button>
     <div class='dropdown-content'>
       <a href='form.php?action=create'>Création d'un nouveau film</a>
     </div>
@@ -55,10 +66,27 @@ $webpage->appendCss("
       background-color: #f1f1f1;
     }
 ");
+
+$content .= "
+<div class='dropdown'>
+    <button class='dropbtn'>Genres</button>
+    <div class='dropdown-content'>
+    <form>";
+$genres = $genreCollection->findAll();
+
+foreach ($genres as $genre) {
+    $content .="<input type='checkbox' name='genres[]' value='{$genre->getName()}'>{$genre->getName()}<br>";
+}
+
+$content .="
+            <input type='submit' value='Submit'>
+        </form>
+    </div>
+  </div>
+";
+
 $content .= "<ul class='list'>";
-
-
-foreach ($movies as $movie) {
+foreach ($filterMovie as $movie) {
 
     $movieName = $webpage->escapeString($movie->getTitle());
 
