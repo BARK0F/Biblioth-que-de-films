@@ -25,6 +25,7 @@ $CastCollection = new CastCollection();
 $webpage->appendCssUrl("css/movie.css");
 
 
+# récuperer le film : movie
 $stmt = MyPDO::getInstance()->prepare(
     <<<SQL
     SELECT *
@@ -51,7 +52,9 @@ $content.="<div class='movie_info'>";
 # Premiere ligne
 $content.="<div class='firstLine'>";
 $content.="<div class = 'title'>{$movie->getTitle()}</div>";
-#$content.="<div class ='date'>{$movie->getReleasedate()}</div>";
+
+$content.="<div class ='date'>{$movie->getReleasedate()}</div>";
+
 $content.="</div>";
 
 $content.="<div class='OriginalTitle'>{$movie->getOriginalTitle()}</div>";

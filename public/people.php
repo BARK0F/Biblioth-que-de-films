@@ -46,7 +46,7 @@ foreach ($movies as $movie){
     }
     $content.= "<div class='ligne1'>";
     $content.= "<div class='titre'>{$movie->getTitle()}</div>";
-    #$content.= "<div class='date'>{$movie->getReleasedate()}</div>";
+    $content.= "<div class='date'>{$movie->getReleasedate()}</div>";
     $content.="</div>";
 
     $cast = $CastCollection->findByMovieIdAndPeopleId($movie->getId(), $actor->getId());
