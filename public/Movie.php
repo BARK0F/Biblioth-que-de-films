@@ -9,10 +9,25 @@ use Entity\Collection\MovieCollection;
 use Entity\Collection\ImageCollection;
 use Entity\Collection\PeopleCollection;
 
+# Les sécurités
+$stmt = MyPdo::getInstance()->prepare(
+    <<<SQL
+            SELECT id
+            FROM movie
+SQL
+);
+$stmt->execute();
+$movies = $stmt->fetchAll(PDO::FETCH_CLASS, movie::class);
 
-if(isset($_GET['id'])) {
+$idMovie = array();
+
+foreach ($movies as $movie){
+    $idMovie[] = $movie->getId();
+}
+
+if(isset($_GET['id']) && ctype_digit($_GET['id']) && in_array($_GET['id'],$idMovie)) {
     $movieId=$_GET['id'];
-} elseif(isset($_GET['id'])) {
+} else {
     header('Location: index.php');
     exit();
 }

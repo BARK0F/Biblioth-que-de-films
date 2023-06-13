@@ -4,14 +4,31 @@ declare(strict_types=1);
 use Database\MyPdo;
 use Entity\Collection\CastCollection;
 use Entity\Movie;
+use Entity\People;
 use Html\AppWebPage;
 use Entity\Collection\MovieCollection;
 use Entity\Collection\ImageCollection;
 use Entity\Collection\PeopleCollection;
 
-if(isset($_GET['peopleId']) && ctype_digit($_GET['peopleId'])) {
+# Les sécurités
+$stmt = MyPdo::getInstance()->prepare(
+    <<<SQL
+            SELECT id
+            FROM people
+SQL
+);
+$stmt->execute();
+$peoples = $stmt->fetchAll(PDO::FETCH_CLASS, people::class);
+
+$idPeoples = array();
+
+foreach ($peoples as $people){
+    $idPeoples[] = $people->getId();
+}
+
+if(isset($_GET['peopleId']) && ctype_digit($_GET['peopleId']) && in_array($_GET['peopleId'],$idPeoples)) {
     $peopleId=$_GET['peopleId'];
-} elseif(isset($_GET['peopleId'])) {
+} else {
     header('Location: index.php');
     exit();
 }
@@ -30,6 +47,16 @@ if ($actor->getAvatarId() !== null){
 }else{
     $content .="<img src='Image/people_not_found.png' alt='dere'>";
 }
+$content.="<div class='nom'>{$actor->getName()}</div>";
+$content.="<div class='PlaceOfBirth'>{$actor->getPlaceOfBirth()}</div>";
+
+$content.="<div class='date_actor'>";
+$content.="<div class='Birthday'>{$actor->getBirthday()}</div>";
+$content.="<div class='Deathday'>{$actor->getDeathday()}</div>";
+$content.="</div>";
+
+$content.="<div class='bio'>{$actor->getBiography()}</div>";
+
 $content .= "</div>";
 
 

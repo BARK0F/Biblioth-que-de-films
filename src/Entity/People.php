@@ -10,7 +10,7 @@ class People
     private ?string $birthday;
     private ?string $deathday;
     private string $name;
-    private string $longtext;
+    private string $biography;
     private string $placeOfBirth;
 
     /**
@@ -48,9 +48,9 @@ class People
     /**
      * @return string
      */
-    public function getLongtext(): string
+    public function getBiography(): string
     {
-        return $this->longtext;
+        return $this->biography;
     }
 
     /**
