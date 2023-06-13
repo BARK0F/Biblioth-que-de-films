@@ -45,7 +45,7 @@ $content = "
     <button class='dropbtn'>redirection</button>
     <div class='dropdown-content'>
       <a href='index.php'>Menu principal</a>
-      <a href='form.php?action=create'>Menu de création</a>
+      <a href='form.php?action=create'>Création d'un nouveau film</a>
     </div>
   </div>
 ";
@@ -106,7 +106,7 @@ $movies = $movieCollection->findByPeopleId($actor->getId());
 
 foreach ($movies as $movie){
     $image = $imageCollection->findById($movie->getPosterId());
-    $content .="<a href='Movie.php?id={$movie->getId()}";
+    $content .="<a href='Movie.php?id={$movie->getId()}'";
     $content .= "<div class='film'>";
     if ($image !== null){
         $content.= "<img class='poster_film' src='image.php?imageId={$image->getId()}'>";
