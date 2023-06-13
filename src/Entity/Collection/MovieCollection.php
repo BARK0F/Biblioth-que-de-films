@@ -39,4 +39,18 @@ SQL
         $stmt->execute(["id"=>$peopleId]);
         return $stmt->fetchAll(PDO::FETCH_CLASS, movie::class);
     }
+
+    public static function findByGenreName(string $name): array{
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT m.*
+            FROM movie m
+                JOIN movie_genre mo ON mo.movieId=m.id
+                JOIN genre g ON g.id = mo.genreId
+            WHERE g.name = :name
+SQL
+        );
+        $stmt->execute(["name"=>$name]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, movie::class);
+    }
 }
