@@ -8,7 +8,7 @@ class Genre
     private int $id;
     private string $name;
 
-    /**
+    /** Ce getter renvoie l'id du genre
      * @return int
      */
     public function getId(): int
@@ -16,7 +16,7 @@ class Genre
         return $this->id;
     }
 
-    /**
+    /** Ce getter renvoie le nom du genre
      * @return string
      */
     public function getName(): string

@@ -7,6 +7,10 @@ use Entity\People;
 use PDO;
 
 class PeopleCollection{
+    /** Cette fonction permet de trouver toutes les personnes qui ont joué un rôle dans un film spécifique.
+     * @param int $movieId L'id du film.
+     * @return array toutes les personnes ayant un rôle dans le film
+     */
     public static function findByMovieId (int $movieId):array{
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
@@ -20,6 +24,9 @@ SQL
         return $stmt->fetchAll(PDO::FETCH_CLASS, people::class);
     }
 
+    /** Cette fonction permet de trouver toutes les personnes disponibles dans la base de données.
+     * @return array Toutes les personnes.
+     */
     public static function findAll():array{
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
@@ -32,6 +39,10 @@ SQL
         return $stmt->fetchAll(PDO::FETCH_CLASS, people::class);
     }
 
+    /** Cette fonction permet de trouver une personne en fonction de son ID.
+     * @param int $id Son id.
+     * @return People La personne.
+     */
     public static function findById(int $id) : people {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL

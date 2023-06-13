@@ -9,7 +9,7 @@ class Cast{
     private string $role;
     private int $orderIndex;
 
-    /**
+    /** Ce getter renvoie l'id du casting
      * @return int
      */
     public function getId(): int
@@ -17,7 +17,7 @@ class Cast{
         return $this->id;
     }
 
-    /**
+    /** Ce getter renvoie le movieId (l'id du film) du casting
      * @return int
      */
     public function getMovieid(): int
@@ -25,7 +25,7 @@ class Cast{
         return $this->movieid;
     }
 
-    /**
+    /** Ce getter renvoie le peopleId (l'id de l'acteur) du casting
      * @return int
      */
     public function getPeopleId(): int
@@ -33,7 +33,7 @@ class Cast{
         return $this->peopleId;
     }
 
-    /**
+    /** Ce getter renvoie le rôle du casting
      * @return string
      */
     public function getRole(): string
@@ -41,7 +41,7 @@ class Cast{
         return $this->role;
     }
 
-    /**
+    /** Ce getter renvoie l'OrderIndex du casting
      * @return int
      */
     public function getOrderIndex(): int

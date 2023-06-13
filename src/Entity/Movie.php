@@ -13,7 +13,7 @@ class Movie{
     private string $tagline;
     private string $title;
 
-    /**
+    /** Ce getter renvoie l'id du Film
      * @return int
      */
     public function getId(): int
@@ -21,7 +21,7 @@ class Movie{
         return $this->id;
     }
 
-    /**
+    /** Ce getter renvoie la langue original du Film
      * @return string
      */
     public function getOriginalLanguage(): string
@@ -29,7 +29,7 @@ class Movie{
         return $this->originalLanguage;
     }
 
-    /**
+    /** Ce getter renvoie le titre original du Film
      * @return string
      */
     public function getOriginalTitle(): string
@@ -37,14 +37,14 @@ class Movie{
         return $this->originalTitle;
     }
 
-    /**
+    /** Ce getter renvoie le résumer du Film
      * @return string
      */
     public function getOverview(): string
     {
         return $this->overview;
     }
-    /**
+    /** Ce getter renvoie la date de publication du Film
      * @return string
      */
     public function getReleasedate(): string
@@ -52,7 +52,7 @@ class Movie{
         return $this->releaseDate;
     }
 
-    /**
+    /** Ce getter renvoie la durée du Film
      * @return int
      */
     public function getRuntime(): int
@@ -60,7 +60,7 @@ class Movie{
         return $this->runtime;
     }
 
-    /**
+    /** Ce getter renvoie le slogan du Film
      * @return string
      */
     public function getTagline(): string
@@ -68,7 +68,7 @@ class Movie{
         return $this->tagline;
     }
 
-    /**
+    /** Ce getter renvoie le titre du Film
      * @return string
      */
     public function getTitle(): string
@@ -76,7 +76,7 @@ class Movie{
         return $this->title;
     }
 
-    /**
+    /** Ce getter renvoie l'id du poster du Film
      * @return int
      */
     public function getPosterId(): ?int

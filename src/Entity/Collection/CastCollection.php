@@ -7,6 +7,11 @@ use Entity\Cast;
 use PDO;
 class CastCollection
 {
+    /** Cette fonction cherche le casting d'une personne sur un film
+     * @param int $movieId L'ID du film pour lequel on souhaite trouver le casting.
+     * @param int $peopleId L'ID de la personne pour laquelle on souhaite trouver son rôle dans le film.
+     * @return Cast Le casting
+     */
     public static function findByMovieIdAndPeopleId(int $movieId, int $peopleId): Cast
     {
         $stmt = MyPdo::getInstance()->prepare(
