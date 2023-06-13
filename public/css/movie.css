@@ -30,6 +30,8 @@ body {
     padding: 20px;
     background-color: rgb(30, 30, 30);
     justify-content:center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .footer {
@@ -109,13 +111,14 @@ body {
 }
 
 .content .principal_content .resumer {
-    height: 25%;
+    height: auto;
 }
 
 .content .acteur {
     display: flex;
-    margin-top: 20px;
+    margin: 20px;
     flex-direction: row;
+    border: 2px red solid;
 }
 
 .content .acteur .image {
@@ -146,20 +149,25 @@ body {
     transform: scale(1.5);
 }
 
+.content .acteur .actor_info {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+    border: 2px white solid;
+}
+
 .content .actor_info .role,
 .content .actor_info .name {
     border: 2px black solid;
     margin-bottom: 10px;
     padding: 10px;
+    height: 50%;
+    width: auto;
     flex: 1;
     text-align: center;
-    flex-direction: column;
     background-color: rgb(130, 130, 130);
-}
-
-.content .acteur .actor_info {
-    width: 80%;
-    display: flex;
+    display: flex; /* Ajout de cette ligne */
     flex-direction: column;
-    padding-left: 20px;
 }
