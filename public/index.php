@@ -16,8 +16,8 @@ $imageCollection = new ImageCollection();
 $movieCollection = new MovieCollection();
 $movies = $movieCollection->findAll();
 
-$content = "<div class='content'>";
-$content .= "<ul class='list'>";
+
+$content = "<ul class='list'>";
 
 
 foreach ($movies as $movie) {

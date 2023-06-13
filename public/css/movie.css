@@ -13,7 +13,7 @@ body {
 }
 
 .header {
-    background-color: rgb(150, 150, 150);
+    background-color: rgb(80, 80, 80);
     padding: 20px;
     text-align: center;
     border: 1px solid black;
@@ -28,11 +28,12 @@ body {
     flex: 1;
     overflow: auto;
     padding: 20px;
-    background-color: rgb(100, 100, 100);
+    background-color: rgb(30, 30, 30);
+    justify-content:center;
 }
 
 .footer {
-    background-color: rgb(150, 150, 150);
+    background-color: rgb(80, 80, 80);
     padding: 20px;
     text-align: center;
     border: 1px solid black;
@@ -56,11 +57,12 @@ body {
 
 .content .principal_content {
     width: 80%;
-    padding-left: 20px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     flex-direction: row;
     border : 2px black solid;
+    background-color: rgb(100,100,100);
 }
 .content .principal_content .movie_info {
     width: 80%;
@@ -69,28 +71,32 @@ body {
     padding-left: 20px;
 }
 
-.content .principal_content .firstLine,
 .content .principal_content .OriginalTitle,
 .content .principal_content .Tagline,
 .content .principal_content .resumer {
     border: 2px black solid;
     margin-bottom: 10px;
     padding: 10px;
+    background-color: rgb(130,130,130);
 }
 
 .content .principal_content .firstLine {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 10px;
+    height : 12%;
+    background-color: rgb(130,130,130);
 }
 
 .content .principal_content .title {
     width: 70%;
+    border: 2px black solid;
 }
 
 .content .principal_content .date {
     width: 30%;
     text-align: right;
+    border: 2px black solid;
 }
 
 .content .principal_content .OriginalTitle {
@@ -120,6 +126,10 @@ body {
     border: 2px black solid;
     margin-bottom: 10px;
     padding: 10px;
+    flex:1;
+    text-align: center;
+    flex-direction:column;
+    background-color: rgb(130,130,130);
 }
 
 .content .acteur .actor_info {
@@ -127,12 +137,4 @@ body {
     display: flex;
     flex-direction: column;
     padding-left: 20px;
-}
-
-.content .acteur .actor_info .role {
-    flex: 1;
-}
-
-.content .acteur .actor_info .name {
-    flex: 1;
 }
