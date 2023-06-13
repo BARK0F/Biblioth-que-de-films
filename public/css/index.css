@@ -41,7 +41,7 @@ body {
 }
 
 .list-item {
-    width: 30%; /* Ajuster la largeur en fonction du nombre d'éléments par ligne */
+    width: 30%;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -50,14 +50,14 @@ body {
 
 .footer {
     background-color: rgb(80, 80, 80);
-    padding: 20px;
+    padding: 5px;
     text-align: center;
     border: 1px solid black;
 }
 
 .footer p {
     border: 2px solid red;
-    padding: 10px;
+    padding: 5px;
 }
 
 .content .list .list-item .movie-item {
@@ -91,4 +91,61 @@ body {
 .content .list .list-item .movie-item {
     color: white;
     text-align: center;
+}
+/* Media query pour les écrans de téléphone en mode portrait */
+@media only screen and (max-width: 650px){
+    .content .list .list-item {
+        width: 100%;
+    }
+    .content .list .list-item .movie-item img {
+        max-width: 30%;
+        height: auto;
+    }
+}
+
+/* Media query pour les écrans de téléphone en mode portrait */
+@media only screen and (max-width: 650px){
+    .content .list .list-item {
+        width: 100%;
+    }
+    .content .list .list-item .movie-item img {
+        max-width: 30%;
+        height: auto;
+    }
+}
+
+/* Media query pour les écrans de téléphone en mode portrait */
+@media only screen and (max-width: 650px){
+    .content .list .list-item {
+        width: 100%;
+    }
+    .content .list .list-item .movie-item img {
+        max-width: 30%;
+        height: auto;
+    }
+}
+
+/* Media query pour les écrans de téléphone en mode portrait */
+@media only screen and (max-width: 650px){
+    .content .list .list-item {
+        width: 100%;
+    }
+    .content .list .list-item .movie-item img {
+        max-width: 40%;
+        height: auto;
+    }
+}
+
+/* Media query pour les écrans de téléphone en mode paysage */
+@media only screen and (min-width: 651px) and (max-width: 1000px) and (orientation: landscape) {
+    .content .list .list-item {
+        width: 40%;
+    }
+    .content .list .list-item:nth-child(2n+1){
+        clear: both;
+    }
+    .content .list .list-item .movie-item img {
+        max-width: 50%;
+        height: auto;
+    }
 }
