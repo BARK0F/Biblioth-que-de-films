@@ -6,7 +6,19 @@ use Html\AppWebPage;
 
 
 $webpage = new AppWebPage();
-$webpage->setTitle("Formulaire d'ajout");
+if ($_GET['action']=="edit"){
+    $type = "de modification du film";
+}
+elseif ($_GET['action']=="create"){
+    $type = "d'ajout de film";
+}
+elseif ($_GET['action']=="delete"){
+$type = "de suppression";
+}else($type="");
+
+
+
+$webpage->setTitle("Formulaire {$type}");
 $webpage->appendCssUrl("css/form.css");
 
 
@@ -116,34 +128,47 @@ if (isset($_GET['action'])) {
 
     // Édition du film actuel
     elseif ($action === 'edit') {
+        # recherche du film pour récupérer ces paramètre
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+        SELECT *
+        FROM movie m
+        WHERE id = :movieId 
+SQL
+        );
+        $stmt->setFetchMode(MyPdo::FETCH_CLASS,movie::class);
+        $stmt->execute(["movieId" => $movieId]);
+        $movie = $stmt->fetch();
+        $type .= " {$movie->getTitle()}";
+        $webpage->setTitle("Formulaire {$type}");
         $content .= "
         <form>
             <label for='mod_title'>Title:</label>
-            <input type='text' name='mod_title' id='mod_title' >
+            <input type='text' name='mod_title' id='mod_title' value='{$movie->getTitle()}'>
             <br>
             
             <label for='mod_release_date'>Release Date:</label>
-            <input type='date' name='mod_release_date' id='mod_release_date' >
+            <input type='date' name='mod_release_date' id='mod_release_date' value='{$movie->getReleasedate()}'>
             <br>
             
             <label for='mod_overview'>Overview:</label>
-            <textarea name='mod_overview' id='mod_overview' rows='4' ></textarea>
+            <textarea name='mod_overview' id='mod_overview' rows='6' >{$movie->getOverview()}</textarea>
             <br>
             
             <label for='mod_originalTitle'>originalTitle:</label>
-            <textarea name='mod_originalTitle' id='mod_originalTitle' rows='4' ></textarea>
+            <textarea name='mod_originalTitle' id='mod_originalTitle' rows='4' >{$movie->getOriginalTitle()}</textarea>
             <br>
             
             <label for='mod_originalLanguage'>originalLanguage:</label>
-            <textarea name='mod_originalLanguage' id='mod_originalLanguage' rows='4' ></textarea>
+            <textarea name='mod_originalLanguage' id='mod_originalLanguage' rows='1' >{$movie->getOriginalLanguage()}</textarea>
             <br>
             
             <label for='mod_runtime'>runtime:</label>
-            <input type='number' name='mod_runtime' id='mod_runtime' >
+            <input type='number' name='mod_runtime' id='mod_runtime' value='{$movie->getRuntime()}'>
             <br>
             
             <label for='mod_tagline'>tagline:</label>
-            <textarea name='mod_tagline' id='mod_tagline' rows='4' ></textarea>
+            <textarea name='mod_tagline' id='mod_tagline' rows='2' >{$movie->getTagline()}</textarea>
             <br>
             
             <label for='mod_id'>Id:</label>
@@ -287,7 +312,6 @@ SQL
     $content.="Le film a bien été modifier";
     $webpage->appendContent($content);
     echo $webpage->toHtml();
-    sleep(3);
     header('Location: Movie.php?id='.$id);
     exit();
 }
