@@ -6,7 +6,8 @@ use Html\AppWebPage;
 
 
 $webpage = new AppWebPage();
-
+$webpage->setTitle("Formulaire d'ajout");
+$webpage->appendCssUrl("css/form.css");
 
 
 $content = "
