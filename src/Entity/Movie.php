@@ -8,7 +8,7 @@ class Movie{
     private string $originalLanguage;
     private string $originalTitle;
     private string $overview;
-    private string $releasedate;
+    private string $releaseDate;
     private int $runtime;
     private string $tagline;
     private string $title;
@@ -44,13 +44,12 @@ class Movie{
     {
         return $this->overview;
     }
-
     /**
      * @return string
      */
     public function getReleasedate(): string
     {
-        return $this->releasedate;
+        return $this->releaseDate;
     }
 
     /**
