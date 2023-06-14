@@ -35,14 +35,14 @@ body {
 
 .footer {
     background-color: rgb(80, 80, 80);
-    padding: 20px;
+    padding: 5px;
     text-align: center;
     border: 1px solid black;
 }
 
 .footer p {
     border: 2px solid red;
-    padding: 10px;
+    padding: 5px;
 }
 
 .content a {
@@ -119,7 +119,6 @@ body {
     display: flex;
     flex-direction: row;
     width: auto;
-    border: 2px red solid;
 }
 
 .content .principal_content .film .movie_info {
@@ -166,3 +165,60 @@ body {
     padding: 10px;
     background-color: rgb(130, 130, 130);
 }
+
+@media only screen and (max-width: 650px) {
+    .content .principal_content .actor img {
+        width: 30%;
+        height: auto;
+        margin: 0 auto;
+    }
+    .content .principal_content .actor {
+        flex-direction: column;
+        width: auto;
+        align-items: center; /* Ajout de cette ligne */
+    }
+    .content .principal_content .actor .actor_info {
+        width: 80%;
+        margin: 0;
+        padding: 10%;
+    }
+    .content .principal_content .film {
+        flex-direction: column;
+        align-items: center;
+        width: auto;
+        height: auto;
+    }
+    .content .principal_content .film .poster_film {
+        width: 30%;
+        align-self: center; /* Ajout de cette ligne */
+    }
+    .content .principal_content .film .movie_info {
+        width: auto; /* Modification de cette ligne */
+        margin-top: 10px; /* Ajout de cette ligne */
+        align-self: center; /* Ajout de cette ligne */
+    }
+
+}
+
+/* Media query pour les écrans de téléphone en mode paysage */
+@media only screen and (min-width: 651px) and (max-width: 1000px) and (orientation: landscape) {
+    .content .principal_content .actor img {
+        width: 50%;
+    }
+    .content .principal_content .film {
+        flex-direction: column;
+        align-items: center;
+        width: auto;
+        height: auto;
+    }
+    .content .principal_content .film .poster_film {
+        width: 30%;
+        align-self: center; /* Ajout de cette ligne */
+    }
+    .content .principal_content .film .movie_info {
+        width: auto; /* Modification de cette ligne */
+        margin-top: 10px; /* Ajout de cette ligne */
+        align-self: center; /* Ajout de cette ligne */
+    }
+}
+
