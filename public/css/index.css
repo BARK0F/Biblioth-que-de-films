@@ -115,6 +115,28 @@ body {
 }
 
 
+/* Media query pour les écrans de téléphone en mode portrait */
+@media only screen and (max-width: 650px){
+    .content .list .list-item {
+        width: 100%;
+    }
+    .content .list .list-item .movie-item img {
+        max-width: 30%;
+        height: auto;
+    }
+}
+
+/* Media query pour les écrans de téléphone en mode portrait */
+@media only screen and (max-width: 650px){
+    .content .list .list-item {
+        width: 100%;
+    }
+    .content .list .list-item .movie-item img {
+        max-width: 40%;
+        height: auto;
+    }
+}
+
 /* Media query pour les écrans de téléphone en mode paysage */
 @media only screen and (min-width: 651px) and (max-width: 1000px) and (orientation: landscape) {
     .content .list .list-item {
