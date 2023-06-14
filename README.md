@@ -10,7 +10,8 @@ Ajout des classes MyPdo, WebPage et AppWebPage
 Protection de la branche principale **main**
 
 # Arborescence du projet
-![Arborescence](Image_README/Arborescence.PNG)
+![Arborescence](Image_README/Arborescence1.PNG)
+![Arborescence2](Image_README/Arborescence2.PNG)
 
 # Classes utilisées dans le code PHP 
 
@@ -240,8 +241,11 @@ La classe CastCollection est une collection de castings associés à des films.
     Les utilisateurs peuvent sélectionner les genres de films qu'ils souhaitent voir à l'aide de cases à cocher. 
     Lorsque les genres sont soumis, la liste de films est mise à jour en conséquence.
 
-### Le rendu de la page 
+### Le rendu de la page en Dark Mode
 !["Image du rendu de index.php"](Image_README/index.PNG)
+
+### Le rendu de la page en Light Mode
+!["Image du rendu de index.php"](Image_README/index_light.PNG)
 
 ## **Movie.php**
     Cette page affiche les détails d'un film spécifique, y compris son titre, sa date de sortie, 
@@ -251,8 +255,11 @@ La classe CastCollection est une collection de castings associés à des films.
     Les utilisateurs ont également la possibilité de naviguer vers d'autres pages, 
     telles que le menu principal, la création d'un nouveau film, la suppression ou la modification du film actuel.
 
-### Le rendu de la page 
+### Le rendu de la page en Dark Mode
 !["Image du rendu de Movie.php"](Image_README/movie.PNG)
+
+### Le rendu de la page en Light Mode
+!["Image du rendu de Movie.php"](Image_README/movie_light.PNG)
 
 ## **people.php**
     Cette page affiche les détails d'une personne, telle qu'un acteur ou une actrice, 
@@ -261,8 +268,14 @@ La classe CastCollection est une collection de castings associés à des films.
     Les informations sont récupérées à partir d'une base de données et affichées de manière structurée. 
     Les utilisateurs ont également la possibilité de naviguer vers d'autres pages, comme le menu principal et la création d'un nouveau film.
 
-### Le rendu de la page 
+### Le rendu de la page en Dark Mode
 !["Image du rendu de people.php"](Image_README/people.PNG)
+!["Image du rendu de people.php"](Image_README/people2.PNG)
+
+### Le rendu de la page en Light Mode
+!["Image du rendu de people.php"](Image_README/people_light.PNG)
+!["Image du rendu de people.php"](Image_README/people2_light.PNG)
+
 
 ## **form.php**
     Cette page permet de créer, éditer ou supprimer des films. L'utilisateur peut accéder à ces fonctionnalités via des liens de redirection. 
@@ -271,5 +284,20 @@ La classe CastCollection est une collection de castings associés à des films.
     Lors de l'édition d'un film existant, un formulaire pré-rempli avec les informations actuelles du film est affiché, et l'utilisateur peut modifier les champs souhaités. 
     Enfin, lors de la suppression d'un film, les données correspondantes sont supprimées de la base de données.
 
-### Le rendu de la page
+### Le rendu de la page du formulaire d'ajout
 !["Image du rendu de form.php"](Image_README/form.PNG)
+
+# **JavaScript**
+Ce repertoire contenu dans le repertoire **public**, contient les fichier script JavaScript, pour chaque bouton Light Mode / Dark Mode
+
+### Light_Dark_mode.js
+    Cette script s'occupe d'éclaicir la background-color des différents éléments 
+    de la page index.php 
+
+### Light_Mode_movie.js
+    Cette script s'occupe d'éclaicir la background-color des différents éléments 
+    de la page movie.php 
+
+### Light_Mode_people.js
+    Cette script s'occupe d'éclaicir la background-color des différents éléments 
+    de la page people.php 
