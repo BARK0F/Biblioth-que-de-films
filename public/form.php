@@ -320,10 +320,10 @@ SQL
         for ($i = 0; $i < count($selectPeoples); $i++) {
             $peopleId = $selectPeoples[$i];
 
-            if (isset($_GET['orderIndex'][$i])) {
+            if ($webpage->escapeString($_GET['orderIndex'][$i]) != "") {
                 $orderIndex = intval($_GET['orderIndex'][$i]);
             } else($orderIndex = 1);
-            if (isset($_GET['role'][$i])) {
+            if ($webpage->escapeString($_GET['role'][$i]) != "") {
                 $role = $webpage->escapeString($_GET['role'][$i]);
             } else($role = "role non renseigné");
 
@@ -560,105 +560,6 @@ if (isset($_GET['peopleId_m'])){
         <input type='submit' value='Submit'>
     </form>";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #Partie suppression d'acteur pour un film
 if (isset($_GET['action2']) && $_GET['action2'] == 'delete_actor') {
