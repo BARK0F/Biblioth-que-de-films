@@ -91,12 +91,12 @@ body {
     background-color: rgb(130, 130, 130);
 }
 
-.content .principal_content .title {
+.content .principal_content .firstLine .Ftitle {
     width: 70%;
     border: 2px black solid;
 }
 
-.content .principal_content .date {
+.content .principal_content .firstLine .date {
     width: 30%;
     text-align: right;
     border: 2px black solid;
