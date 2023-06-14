@@ -84,7 +84,12 @@ $content .="
     </div>
   </div>
 ";
+$content .= "
+<div class='dropdown'>
+    <button id='mode-toggle'>Light Mode</button>
 
+</div>
+";
 $content .= "<ul class='list'>";
 foreach ($filterMovie as $movie) {
 
@@ -113,5 +118,7 @@ $content .= "</ul>";
 $content .= "</div>";
 
 $webpage->appendContent($content);
+
+$webpage->appendJsUrl("JavaScript/Light_Dark_mode.js");
 
 echo $webpage->toHtml();
