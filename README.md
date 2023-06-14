@@ -284,8 +284,33 @@ La classe CastCollection est une collection de castings associés à des films.
     Lors de l'édition d'un film existant, un formulaire pré-rempli avec les informations actuelles du film est affiché, et l'utilisateur peut modifier les champs souhaités. 
     Enfin, lors de la suppression d'un film, les données correspondantes sont supprimées de la base de données.
 
-### Le rendu de la page du formulaire d'ajout
+
+### Le rendu du formulaire 
+    Le formulaire de suppression est juste un bouton quand on est sur un film pour le supprime.
+    Celui ci supprime également le casting et le movie_genre
+!["Image du rendu du fomulaire de supression](Image_README/suppression.jpg)
+
+
+### Le rendu d'édition d'un film
+    
+!["page d'édition"](Image_README/edition.PNG)
+
+#### Le rendu de la page du formulaire de modification
 !["Image du rendu de form.php"](Image_README/form.PNG)
+
+#### Le rendu de la page du formulaire d'ajout d'acteur pour un film
+!["Image du rendu de la page d'ajout d'acteur"](Image_README/ajout_acteur.PNG)
+
+#### Le rendu de la page du formulaire de suppression d'acteur pour un film
+!["Image du rendu de la page de suppression d'acteur"](Image_README/suppression_acteur.PNG)
+
+#### Le rendu de la page du formulaire d'ajout de genre pour un film
+!["Image du rendu de la page d'ajout de genre"](Image_README/ajout_genre.PNG)
+
+#### Le rendu de la page du formulaire de suppression de genre pour un film
+!["Image du rendu de la page de suppression de genre"](Image_README/ajout_genre.PNG)
+
+
 
 # **JavaScript**
 Ce repertoire contenu dans le repertoire **public**, contient les fichier script JavaScript, pour chaque bouton Light Mode / Dark Mode
