@@ -63,6 +63,13 @@ $content = "
 </div>
 ";
 
+$content .= "
+<div class='dropdown'>
+    <button id='mode-toggle'>Light Mode</button>
+
+</div>
+";
+
 $webpage->appendCss("
 .dropdown {
     position: relative;
@@ -106,7 +113,7 @@ if ($movie->getPosterId() !== null) {
 
 $content .= "<div class='movie_info'>";
 $content .= "<div class='firstLine'>";
-$content .= "<div class='title'>{$movie->getTitle()}</div>";
+$content .= "<div class='Ftitle'>{$movie->getTitle()}</div>";
 $content .= "<div class='date'>{$movie->getReleasedate()}</div>";
 $content .= "</div>";
 $content .= "<div class='OriginalTitle'>{$movie->getOriginalTitle()}</div>";
@@ -137,5 +144,6 @@ foreach ($peoples as $people) {
 }
 
 $webpage->appendContent($content);
+$webpage->appendJsUrl("JavaScript/Light_Mode_movie.js");
 echo $webpage->toHtml();
 
