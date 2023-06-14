@@ -114,6 +114,7 @@ body {
     }
 }
 
+
 /* Media query pour les écrans de téléphone en mode portrait */
 @media only screen and (max-width: 650px){
     .content .list .list-item {
