@@ -49,6 +49,12 @@ $content = "
     </div>
 </div>
 ";
+$content .= "
+<div class='dropdown'>
+    <button id='mode-toggle'>Light Mode</button>
+
+</div>
+";
 
 $webpage->appendCss("
 .dropdown {
@@ -143,4 +149,5 @@ foreach ($movies as $movie) {
 $content .= "</div>";
 
 $webpage->appendContent($content);
+$webpage->appendJsUrl("JavaScript/Light_Mode_people.js");
 echo $webpage->toHtml();
