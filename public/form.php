@@ -8,6 +8,7 @@ use Html\AppWebPage;
 
 $PeopleCollection = new PeopleCollection();
 $genreCollection = new genreCollection();
+$PeopleCollection2 = new PeopleCollection();
 $webpage = new AppWebPage();
 if (isset($_GET['action'])){
     if ($_GET['action']=="edit"){
@@ -135,56 +136,29 @@ if (isset($_GET['action'])) {
 
     // Édition du film actuel
     elseif ($action === 'edit') {
-        # recherche du film pour récupérer ces paramètre
-        $stmt = MyPdo::getInstance()->prepare(
-            <<<SQL
-        SELECT *
-        FROM movie m
-        WHERE id = :movieId 
-SQL
-        );
-        $stmt->setFetchMode(MyPdo::FETCH_CLASS,movie::class);
-        $stmt->execute(["movieId" => $movieId]);
-        $movie = $stmt->fetch();
-        $type .= " {$movie->getTitle()}";
-        $webpage->setTitle("Formulaire {$type}");
         $content .= "
-        <form>
-            <label for='mod_title'>Title:</label>
-            <input type='text' name='mod_title' id='mod_title' value='{$movie->getTitle()}'>
-            <br>
-            
-            <label for='mod_release_date'>Release Date:</label>
-            <input type='date' name='mod_release_date' id='mod_release_date' value='{$movie->getReleasedate()}'>
-            <br>
-            
-            <label for='mod_overview'>Overview:</label>
-            <textarea name='mod_overview' id='mod_overview' rows='6' >{$movie->getOverview()}</textarea>
-            <br>
-            
-            <label for='mod_originalTitle'>originalTitle:</label>
-            <textarea name='mod_originalTitle' id='mod_originalTitle' rows='4' >{$movie->getOriginalTitle()}</textarea>
-            <br>
-            
-            <label for='mod_originalLanguage'>originalLanguage:</label>
-            <textarea name='mod_originalLanguage' id='mod_originalLanguage' rows='1' >{$movie->getOriginalLanguage()}</textarea>
-            <br>
-            
-            <label for='mod_runtime'>runtime:</label>
-            <input type='number' name='mod_runtime' id='mod_runtime' value='{$movie->getRuntime()}'>
-            <br>
-            
-            <label for='mod_tagline'>tagline:</label>
-            <textarea name='mod_tagline' id='mod_tagline' rows='2' >{$movie->getTagline()}</textarea>
-            <br>
-            
-            <label for='mod_id'>Id:</label>
-            <input type='number' name='mod_id' id='mod_id' value='{$movieId}' readonly>
-            <br>
-            
+        <form method='get'>
+            <label>l'Id du film :
+            <input type='text' name='idMovie' id='idMovie' value='{$movieId}' readonly>
+            </label><br>
+            <label>Modifier le film :
+            <input type='radio' name='action2' value='edit_movie'>
+            </label><br>
+            <label>Ajouter des acteurs :
+            <input type='radio' name='action2' value='add_actor'>
+            </label><br>
+            <label>Retirer des acteurs :
+            <input type='radio' name='action2' value='delete_actor'>
+            </label><br>
+            <label>Ajouter des genres :
+            <input type='radio' name='action2' value='add_genre'>
+            </label><br>
+            <label>Retirer des genres :
+            <input type='radio' name='action2' value='delete_genre'> 
+            </label><br>
+
             <input type='submit' value='Submit'>
-        </form>
-        ";
+        </form>";
     }
 
     // Suppression du film actuel
@@ -360,6 +334,62 @@ SQL
     header('Location: Movie.php?id='.$movie->getId());
     exit();
 }
+# Edition
+
+# Partie édition du film
+if (isset($_GET['action2']) && $_GET['action2']=='edit_movie' && isset($_GET['idMovie'])){
+    # recherche du film pour récupérer ces paramètre
+    $movieId = $_GET['idMovie'];
+    $stmt = MyPdo::getInstance()->prepare(
+        <<<SQL
+            SELECT *
+            FROM movie m
+            WHERE id = :movieId 
+    SQL
+    );
+    $stmt->setFetchMode(MyPdo::FETCH_CLASS,movie::class);
+    $stmt->execute(["movieId" => $movieId]);
+    $movie = $stmt->fetch();
+    $type .= " {$movie->getTitle()}";
+    $webpage->setTitle("Formulaire {$type}");
+    $content .= "
+            <form>
+            <label for='mod_title'>Title:</label>
+            <input type='text' name='mod_title' id='mod_title' value='{$movie->getTitle()}'>
+            <br>
+            
+            <label for='mod_release_date'>Release Date:</label>
+            <input type='date' name='mod_release_date' id='mod_release_date' value='{$movie->getReleasedate()}'>
+            <br>
+            
+            <label for='mod_overview'>Overview:</label>
+            <textarea name='mod_overview' id='mod_overview' rows='6' >{$movie->getOverview()}</textarea>
+            <br>
+            
+            <label for='mod_originalTitle'>originalTitle:</label>
+            <textarea name='mod_originalTitle' id='mod_originalTitle' rows='4' >{$movie->getOriginalTitle()}</textarea>
+            <br>
+            
+            <label for='mod_originalLanguage'>originalLanguage:</label>
+            <textarea name='mod_originalLanguage' id='mod_originalLanguage' rows='1' >{$movie->getOriginalLanguage()}</textarea>
+            <br>
+            
+            <label for='mod_runtime'>runtime:</label>
+            <input type='number' name='mod_runtime' id='mod_runtime' value='{$movie->getRuntime()}'>
+            <br>
+            
+            <label for='mod_tagline'>tagline:</label>
+            <textarea name='mod_tagline' id='mod_tagline' rows='2' >{$movie->getTagline()}</textarea>
+            <br>
+            
+            <label for='mod_id'>Id:</label>
+            <input type='number' name='mod_id' id='mod_id' value='{$movieId}' readonly>
+            <br>
+            
+            <input type='submit' value='Submit'>
+        </form>
+        ";
+}
 
 if (isset($_GET['mod_title'])){
     $id = $_GET['mod_id'];
@@ -450,4 +480,3 @@ SQL
 }
 $webpage->appendContent($content);
 echo $webpage->toHtml();
-
