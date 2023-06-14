@@ -316,6 +316,7 @@ SQL
     $movie = $stmt->fetch();
 
     if (!empty($selectPeoples)) {
+        $id_cast = MyPdo::getInstance()->lastInsertId();
         for ($i = 0; $i < count($selectPeoples); $i++) {
             $peopleId = $selectPeoples[$i];
 
@@ -327,7 +328,7 @@ SQL
             } else($role = "role non renseigné");
 
 
-            $id_cast = MyPdo::getInstance()->lastInsertId();
+
             $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
             INSERT INTO cast (id,movieId,peopleId,role,orderIndex)
