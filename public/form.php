@@ -337,7 +337,7 @@ SQL
 # Edition
 
 # Partie édition du film
-if (isset($_GET['action2']) && $_GET['action2']=='edit_movie' && isset($_GET['idMovie'])){
+if (isset($_GET['action2']) && $_GET['action2'] == 'edit_movie' ){
     # recherche du film pour récupérer ces paramètre
     $movieId = $_GET['idMovie'];
     $stmt = MyPdo::getInstance()->prepare(
@@ -478,5 +478,176 @@ SQL
     header('Location: Movie.php?id='.$id);
     exit();
 }
+
+# Partie ajout d'acteur pour un film
+if (isset($_GET['action2']) && $_GET['action2'] == 'add_actor'){
+    $movieId = $_GET['idMovie'];
+    $content .= "
+    <form>
+    <label for='s_id_'>id :</label>   
+        <input type='text' name='s_id_' id='s_id_' value='{$movieId}' readonly>
+    <br>";
+    $peoplesAll = $PeopleCollection2->findAll();
+    foreach ($peoplesAll as $people_) {
+        $content .="
+        <label for='peopleId_movie'>";
+        if ($people_->getAvatarId() !== null) {
+            $content .= "<img src='image.php?imageId={$people_->getAvatarId()}'>";
+        } else {
+            $content .= "<img src='Image/people_not_found.png' alt='dere'>";
+        }
+        $content .="{$people_->getName()}:</label>            
+            <input type='checkbox' name='s_peopleId[]' value='{$people_->getId()}'>
+         <br>";
+    }
+
+    $content .="
+        <input type='submit' value='Submit'>
+    </form>";
+}
+
+
+#Partie suppression d'acteur pour un film
+if (isset($_GET['action2']) && $_GET['action2'] == 'delete_actor') {
+
+    $movieId = $_GET['idMovie'];
+    $content .= "
+    <form>
+    <label for='s_id_'>id :</label>   
+        <input type='text' name='id' id='id' value='{$movieId}' readonly>
+    <br>";
+
+    $peoples = $PeopleCollection->findByMovieId(intval($movieId));
+
+    foreach ($peoples as $people) {
+        $content .="
+        <label for='peopleId_del'>";
+        if ($people->getAvatarId() !== null) {
+            $content .= "<img src='image.php?imageId={$people->getAvatarId()}'>";
+        } else {
+            $content .= "<img src='Image/people_not_found.png' alt='dere'>";
+        }
+        $content .="{$people->getName()}:</label>            
+            <input type='checkbox' name='peopleId_del[]' value='{$people->getId()}'>
+         <br>";
+    }
+
+    $content .="
+        <input type='submit' value='Submit'>
+    </form>";
+}
+
+if (isset($_GET['peopleId_del'])){
+    $selectPeoplesIdDel = $_GET['peopleId_del'] ?? [];
+    $idMovie = $_GET['id'];
+    foreach ($selectPeoplesIdDel as $peopleIdDel){
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            DELETE c
+            FROM cast c
+                JOIN movie m ON m.id = c.movieId
+            WHERE c.movieId = :idMovie AND c.peopleId = :idPeople
+SQL
+        );
+        $stmt->execute(["idMovie"=>$idMovie,"idPeople"=>$peopleIdDel]);
+    }
+    echo $webpage->toHtml();
+    header('Location: Movie.php?id='.$id);
+    exit();
+}
+
+# partie pour ajouter des genres
+if (isset($_GET['action2']) && $_GET['action2'] == 'add_genre'){
+    $movieId = $_GET['idMovie'];
+    $content .= "
+    <form>
+    <label for='s_id_'>id :</label>   
+        <input type='text' name='id_movie' id='id_movie' value='{$movieId}' readonly>
+    <br>";
+    $genres = $genreCollection->findAll();
+    foreach ($genres as $genre){
+        $content .="
+        <label for='s_genresId'>{$genre->getName()}:</label>            
+            <input type='checkbox' name='genresId_movie[]' value='{$genre->getId()}'>
+         <br>";
+    }
+    $content .="
+    <input type='submit' value='Submit'>
+    </form>
+    ";
+}
+if (isset($_GET['genresId_movie'])) {
+    $selectGenres = $_GET['genresId_movie'] ?? [];
+    $id = $_GET['id_movie'];
+    $stmt = MyPdo::getInstance()->prepare(
+        <<<SQL
+            SELECT *
+            FROM movie
+            WHERE id =:id
+SQL
+    );
+    $stmt->setFetchMode(MyPdo::FETCH_CLASS, movie::class);
+    $stmt->execute(["id" => $id]);
+    $movie = $stmt->fetch();
+
+    if (!empty($selectGenres)) {
+        foreach ($selectGenres as $genreId) {
+            $stmt = MyPdo::getInstance()->prepare(
+                <<<SQL
+            INSERT INTO movie_genre (movieId,genreId)
+            VALUES (:id,:genreId)
+SQL
+            );
+            $stmt->execute(["id" => $movie->getId(), "genreId" => $genreId]);
+        }
+    }
+    echo $webpage->toHtml();
+    header('Location: Movie.php?id=' . $id);
+    exit();
+}
+
+
+
+
+# partie supprimer des genres
+if (isset($_GET['action2']) && $_GET['action2'] == 'delete_genre'){
+    $movieId = $_GET['idMovie'];
+    $content .= "
+    <form>
+    <label for='id_movie'>id :</label>   
+        <input type='text' name='id_movie' id='id_movie' value='{$movieId}' readonly>
+    <br>";
+    $genres = $genreCollection->findByMovieId(intval($movieId));
+    foreach ($genres as $genre){
+        $content .="
+        <label for='genresId_movie_del'>{$genre->getName()}:</label>            
+            <input type='checkbox' name='genresId_movie_del[]' value='{$genre->getId()}'>
+         <br>";
+    }
+    $content .="
+    <input type='submit' value='Submit'>
+    </form>
+    ";
+}
+
+if (isset($_GET['genresId_movie_del'])){
+    $movieId = $_GET['id_movie'];
+    $IdGenres = $_GET['genresId_movie_del'];
+    foreach ($IdGenres as $IdGenre){
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+                DELETE mo
+                FROM movie_genre mo
+                    JOIN movie m ON m.id = mo.movieId
+                WHERE mo.movieId = :movieId AND mo.genreId=:genreId
+    SQL
+        );
+        $stmt->execute(["movieId"=>$movieId,"genreId"=>intval($IdGenre)]);
+    }
+    echo $webpage->toHtml();
+    header('Location: Movie.php?id=' . $movieId);
+    exit();
+}
+
 $webpage->appendContent($content);
 echo $webpage->toHtml();
