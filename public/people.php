@@ -109,10 +109,13 @@ $movies = $movieCollection->findByPeopleId($actor->getId());
 
 foreach ($movies as $movie) {
     $image = $imageCollection->findById($movie->getPosterId());
-    $content .= "<a href='Movie.php?id={$movie->getId()}'>";
     $content .= "
-        <div class='film'>
-            ";
+<div class='film'>
+";
+    $content .= "
+<a href='Movie.php?id={$movie->getId()}'>
+";
+
 
     if ($image !== null) {
         $content .= "<img class='poster_film' src='image.php?imageId={$image->getId()}'>";
