@@ -302,7 +302,7 @@ SQL
 
 if (isset($_GET['s_peopleId'])) {
     $selectPeoples = $_GET['s_peopleId'] ?? [];
-    $idMovie = $_GET['s_id_'];
+    $idMovie = intval($_GET['s_id_']);
 
     $stmt = MyPdo::getInstance()->prepare(
         <<<SQL
@@ -316,19 +316,27 @@ SQL
     $movie = $stmt->fetch();
 
     if (!empty($selectPeoples)) {
-        $orderIndex = 1;
-        $role = "role non renseigné";
-        $id_cast = MyPdo::getInstance()->lastInsertId();
-        foreach ($selectPeoples as $peopleId) {
+        for ($i = 0; $i < count($selectPeoples); $i++) {
+            $peopleId = $selectPeoples[$i];
+
+            if (isset($_GET['orderIndex'][$i])) {
+                $orderIndex = intval($_GET['orderIndex'][$i]);
+            } else($orderIndex = 1);
+            if (isset($_GET['role'][$i])) {
+                $role = $webpage->escapeString($_GET['role'][$i]);
+            } else($role = "role non renseigné");
+
+
+            $id_cast = MyPdo::getInstance()->lastInsertId();
             $stmt = MyPdo::getInstance()->prepare(
-                <<<SQL
+            <<<SQL
             INSERT INTO cast (id,movieId,peopleId,role,orderIndex)
             VALUES (:id,:movieId,:peopleId,:role_c,:orderIndex)
 SQL
-            );
-            $stmt->execute(["id" =>  $id_cast, "movieId" => $movie->getId(), "peopleId" => $peopleId, "role_c" => $role, "orderIndex" => $orderIndex]);
-        }
+        );
+        $stmt->execute(["id" => $id_cast, "movieId" => $movie->getId(), "peopleId" => $peopleId, "role_c" => $role, "orderIndex" => $orderIndex]);
     }
+}
     $webpage->appendContent($content);
     echo $webpage->toHtml();
     header('Location: Movie.php?id='.$movie->getId());
@@ -497,14 +505,14 @@ if (isset($_GET['action2']) && $_GET['action2'] == 'add_actor'){
     }
     foreach ($peopleInMovie as $people_) {
         $content .="
-        <label for='peopleId_movie'>";
+        <label for='peopleId_m'>";
         if ($people_->getAvatarId() !== null) {
             $content .= "<img src='image.php?imageId={$people_->getAvatarId()}'>";
         } else {
             $content .= "<img src='Image/people_not_found.png' alt='dere'>";
         }
         $content .="{$people_->getName()}:</label>            
-            <input type='checkbox' name='s_peopleId[]' value='{$people_->getId()}'>
+            <input type='checkbox' name='peopleId_m[]' value='{$people_->getId()}'>
          <br>";
     }
 
@@ -512,6 +520,143 @@ if (isset($_GET['action2']) && $_GET['action2'] == 'add_actor'){
         <input type='submit' value='Submit'>
     </form>";
 }
+
+if (isset($_GET['peopleId_m'])){
+    $peoplesId=$_GET['peopleId_m'];
+    $movieId = $_GET['s_id_'];
+    $content .= "
+    <form method='get'>
+        <input type='hidden' name='s_id_' id='s_id_' value='{$movieId}' readonly>
+    <br>";
+
+    foreach ($peoplesId as $peopleId) {
+        $content .="
+        <label>
+        <input type='hidden' name='s_peopleId[]' id='s_peopleId[]' value='{$peopleId}' readonly>";
+        $people = $PeopleCollection->findById(intval($peopleId));
+        if ($people->getAvatarId() !== null) {
+            $content .= "<img src='image.php?imageId={$people->getAvatarId()}'>";
+        } else {
+            $content .= "<img src='Image/people_not_found.png'>";
+        }
+        $content .="<br>{$people->getName()}:</label>          
+            <label><input type='hidden' name='peopleId' id='peopleId' value='{$people->getId()}' readonly>
+            <br>
+            <label>role :</label>
+            <br>
+            <textarea name='role[]' id='role[]' rows='2' ></textarea>
+            <br>
+            <label>orderIndex :</label>
+            <br>
+            <input type='number' name='orderIndex[]' id='orderIndex[]'>
+            <br>
+            <br>
+            <br>
+         <br>";
+    }
+
+    $content .="
+        <input type='submit' value='Submit'>
+    </form>";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #Partie suppression d'acteur pour un film
