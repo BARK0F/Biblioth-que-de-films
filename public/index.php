@@ -17,16 +17,7 @@ $imageCollection = new ImageCollection();
 $movieCollection = new MovieCollection();
 $genreCollection = new GenreCollection();
 
-$selectGenres = $_GET['genres'] ?? [];
-$filterMovie = array();
 
-if (!empty($selectGenres)){
-    foreach ($selectGenres as $selectGenre){
-        $filterMovie = array_merge($filterMovie,$movieCollection->findByGenreName($selectGenre));
-    }
-}else{
-    $filterMovie = $movieCollection->findAll();
-}
 $content = "
 <div class='dropdown'>
     <button class='dropbtn'>Redirection</button>
@@ -91,6 +82,22 @@ $content .= "
 </div>
 ";
 $content .= "<ul class='list'>";
+
+$selectGenres = $_GET['genres'] ?? [];
+$filterMovie = array();
+$listeAntiDoublons=array();
+if (!empty($selectGenres)){
+    foreach ($selectGenres as $selectGenre){
+        $movies = $movieCollection->findByGenreName($selectGenre);
+        foreach ($movies as $movie){
+            if (!in_array($movie,$filterMovie)){
+                $filterMovie[] =$movie;
+            }
+        }
+    }
+}else{
+    $filterMovie = $movieCollection->findAll();
+}
 foreach ($filterMovie as $movie) {
 
     $movieName = $webpage->escapeString($movie->getTitle());

@@ -488,7 +488,14 @@ if (isset($_GET['action2']) && $_GET['action2'] == 'add_actor'){
         <input type='text' name='s_id_' id='s_id_' value='{$movieId}' readonly>
     <br>";
     $peoplesAll = $PeopleCollection2->findAll();
-    foreach ($peoplesAll as $people_) {
+    $peopleInMovie = $PeopleCollection->findByMovieId(intval($movieId));
+    $peopleNotInMovie = array();
+    foreach ($peoplesAll as $people){
+        if (!in_array($people,$peopleInMovie)){
+            $peopleInMovie[]=$people;
+        }
+    }
+    foreach ($peopleInMovie as $people_) {
         $content .="
         <label for='peopleId_movie'>";
         if ($people_->getAvatarId() !== null) {
@@ -564,8 +571,15 @@ if (isset($_GET['action2']) && $_GET['action2'] == 'add_genre'){
     <label for='s_id_'>id :</label>   
         <input type='text' name='id_movie' id='id_movie' value='{$movieId}' readonly>
     <br>";
-    $genres = $genreCollection->findAll();
-    foreach ($genres as $genre){
+    $genresAll = $genreCollection->findAll();
+    $genreInMovie = $genreCollection->findByMovieId(intval($movieId));
+    $genreNotInMovie = array();
+    foreach ($genresAll as $genre){
+        if (!in_array($genre,$genreInMovie)){
+            $genreNotInMovie[]=$genre;
+        }
+    }
+    foreach ($genreNotInMovie as $genre){
         $content .="
         <label for='s_genresId'>{$genre->getName()}:</label>            
             <input type='checkbox' name='genresId_movie[]' value='{$genre->getId()}'>
