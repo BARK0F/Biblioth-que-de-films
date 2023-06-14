@@ -284,14 +284,14 @@ SQL
 
     foreach ($peoples as $people) {
         $content .="
-        <label for='s_peopleId'>";
+        <label for='peopleId_m'>";
         if ($people->getAvatarId() !== null) {
             $content .= "<img src='image.php?imageId={$people->getAvatarId()}'>";
         } else {
             $content .= "<img src='Image/people_not_found.png' alt='dere'>";
         }
         $content .="{$people->getName()}:</label>            
-            <input type='checkbox' name='s_peopleId[]' value='{$people->getId()}'>
+            <input type='checkbox' name='peopleId_m[]' value='{$people->getId()}'>
          <br>";
     }
 
