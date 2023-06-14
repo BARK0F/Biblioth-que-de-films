@@ -1,24 +1,30 @@
 <?php
 declare(strict_types=1);
 use Database\MyPdo;
+use Entity\Collection\GenreCollection;
+use Entity\Collection\PeopleCollection;
 use Entity\Movie;
 use Html\AppWebPage;
 
-
+$PeopleCollection = new PeopleCollection();
+$genreCollection = new genreCollection();
 $webpage = new AppWebPage();
-if ($_GET['action']=="edit"){
-    $type = "de modification du film";
-}
-elseif ($_GET['action']=="create"){
-    $type = "d'ajout de film";
-}
-elseif ($_GET['action']=="delete"){
-$type = "de suppression";
+if (isset($_GET['action'])){
+    if ($_GET['action']=="edit"){
+        $type = "de modification du film";
+    }
+    elseif ($_GET['action']=="create"){
+        $type = "d'ajout de film";
+    }
+    elseif ($_GET['action']=="delete"){
+        $type = "de suppression";
+    }else($type="");
 }else($type="");
 
 
 
-$webpage->setTitle("Formulaire {$type}");
+
+
 $webpage->appendCssUrl("css/form.css");
 
 
@@ -92,6 +98,7 @@ if (isset($_GET['action'])) {
 
     # Création d'un nouveau film
     if ($action === 'create') {
+        $webpage->setTitle("Formulaire {$type}");
         $content .= "
         <form>
             <label for='title'>Title:</label>
@@ -182,6 +189,17 @@ SQL
 
     // Suppression du film actuel
     elseif ($action === 'delete') {
+        $webpage->setTitle("Formulaire {$type}");
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+            DELETE mo
+            FROM movie_genre mo
+                JOIN movie m ON m.id = mo.movieId
+            WHERE mo.movieId = :id
+SQL
+        );
+        $stmt->execute(["id"=>$movieId]);
+
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
             DELETE c
@@ -221,10 +239,125 @@ if (isset($_GET['title'])) {
 SQL
     );
     $stmt->execute(["id"=>$id,"originalLanguage"=>$originalLanguage,"originalTitle"=>$originalTitle,"overview"=>$overview,"releaseDate"=>$release_date,"runtime"=>$runtime,"tagline"=>$tagLine,"title"=>$title]);
+    sleep(2);
+    $webpage->setTitle("Formulaire d'ajout de genre dans le film {$title}");
 
+    $stmt = MyPdo::getInstance()->prepare(
+        <<<SQL
+            SELECT *
+            FROM movie
+            WHERE title = :title AND releaseDate=:release_date AND overview=:overview AND runtime=:runtime
+SQL
+    );
+    $stmt->setFetchMode(MyPdo::FETCH_CLASS,movie::class);
+    $stmt->execute(["title"=>$title,"release_date"=>$release_date,"overview"=>$overview,"runtime"=>$runtime]);
+    $movie = $stmt->fetch();
+    $content = "
+    <form>
+    <label for='s_id'>id :</label>   
+        <input type='text' name='s_id' id='s_id' value='{$movie->getId()}' readonly>
+    <br>";
+    $genres = $genreCollection->findAll();
+
+    foreach ($genres as $genre) {
+        $content .="
+        <label for='s_genresId'>{$genre->getName()}:</label>            
+            <input type='checkbox' name='s_genresId[]' value='{$genre->getId()}'>
+         <br>";
+    }
+
+
+    $content .="
+    <input type='submit' value='Submit'>
+    </form>
+
+    ";
+}
+
+if (isset($_GET['s_genresId'])){
+    $selectGenres = $_GET['s_genresId'] ?? [];
+    $id = $_GET['s_id'];
+    $stmt = MyPdo::getInstance()->prepare(
+    <<<SQL
+            SELECT *
+            FROM movie
+            WHERE id =:id
+SQL
+            );
+    $stmt->setFetchMode(MyPdo::FETCH_CLASS,movie::class);
+    $stmt->execute(["id"=>$id]);
+    $movie = $stmt->fetch();
+
+    if (!empty($selectGenres)){
+        foreach ($selectGenres as $genreId){
+            $stmt = MyPdo::getInstance()->prepare(
+                <<<SQL
+            INSERT INTO movie_genre (movieId,genreId)
+            VALUES (:id,:genreId)
+SQL
+            );
+            $stmt->execute(["id"=>$movie->getId(),"genreId"=>$genreId]);
+        }
+    }
+
+    $webpage->setTitle("Formulaire d'ajout d'acteur dans le film {$movie->getTitle()}");
+    $content = "
+    <form>
+    <label for='s_id_'>id :</label>   
+        <input type='text' name='s_id_' id='s_id_' value='{$movie->getId()}' readonly>
+    <br>";
+    $peoples = $PeopleCollection->findAll();
+
+    foreach ($peoples as $people) {
+        $content .="
+        <label for='s_peopleId'>";
+        if ($people->getAvatarId() !== null) {
+            $content .= "<img src='image.php?imageId={$people->getAvatarId()}'>";
+        } else {
+            $content .= "<img src='Image/people_not_found.png' alt='dere'>";
+        }
+        $content .="{$people->getName()}:</label>            
+            <input type='checkbox' name='s_peopleId[]' value='{$people->getId()}'>
+         <br>";
+    }
+
+    $content .="
+        <input type='submit' value='Submit'>
+    </form>";
+}
+
+if (isset($_GET['s_peopleId'])) {
+    $selectPeoples = $_GET['s_peopleId'] ?? [];
+    $idMovie = $_GET['s_id_'];
+
+    $stmt = MyPdo::getInstance()->prepare(
+        <<<SQL
+            SELECT *
+            FROM movie
+            WHERE id =:id
+SQL
+    );
+    $stmt->setFetchMode(MyPdo::FETCH_CLASS, movie::class);
+    $stmt->execute(["id" => $idMovie]);
+    $movie = $stmt->fetch();
+
+    if (!empty($selectPeoples)) {
+        $orderIndex = 1;
+        $role = "role non renseigné";
+        $id_cast = MyPdo::getInstance()->lastInsertId();
+        foreach ($selectPeoples as $peopleId) {
+            $stmt = MyPdo::getInstance()->prepare(
+                <<<SQL
+            INSERT INTO cast (id,movieId,peopleId,role,orderIndex)
+            VALUES (:id,:movieId,:peopleId,:role_c,:orderIndex)
+SQL
+            );
+            $stmt->execute(["id" =>  $id_cast, "movieId" => $movie->getId(), "peopleId" => $peopleId, "role_c" => $role, "orderIndex" => $orderIndex]);
+        }
+    }
     $webpage->appendContent($content);
     echo $webpage->toHtml();
-    header("Location: Movie.php?id={$id}");
+    header('Location: Movie.php?id='.$movie->getId());
     exit();
 }
 
